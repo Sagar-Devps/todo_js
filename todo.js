@@ -5,16 +5,6 @@ const addTaskBtn = document.getElementById('addTaskBtn');
 const showCompleted = document.getElementById('showCompleted');
 const clearCompleted = document.getElementById('clearCompleted');
 
-// Retrieve tasks from local storage or initialize an empty array
-const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-
-// Check if there is a duplicate task using a callback function
-const isDuplicateTask = (taskText) =>
-  tasks.some((task) => task.text.toLowerCase() === taskText.toLowerCase() && !task.completed);
-
-// Save the tasks to local storage
-const saveTasks = () => localStorage.setItem('tasks', JSON.stringify(tasks));
-
 // Function to render the tasks on the web page
 const renderTasks = () => {
   // Filter tasks based on the "Show completed" checkbox
@@ -111,7 +101,14 @@ clearCompleted.addEventListener('click', () => {
   tasks.splice(0, tasks.length, ...tasks.filter((task) => !task.completed));
   saveTasks();
   renderTasks();
-});
+});// Retrieve tasks from local storage or initialize an empty array
+const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
+// Check if there is a duplicate task using a callback function
+const isDuplicateTask = (taskText) =>
+  tasks.some((task) => task.text.toLowerCase() === taskText.toLowerCase() && !task.completed);
+
+// Save the tasks to local storage
+const saveTasks = () => localStorage.setItem('tasks', JSON.stringify(tasks));
 // Initial rendering of tasks
 renderTasks();
